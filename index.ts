@@ -9,5 +9,5 @@ if(!process.env['WEBHOOK']){
 }
 
 const bot = new Bot(process.env['BOT_TOKEN'])
-
+console.log("setting webhook url" +  process.env['WEBHOOK'] + "via telegram api")
 bot.api.setWebhook(process.env['WEBHOOK'])

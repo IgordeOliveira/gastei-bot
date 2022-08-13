@@ -9,7 +9,6 @@ import { freeStorage } from "@grammyjs/storage-free";
 
 import saveOnSheet from './sheetService'
 
-
 interface SessionData {
     awnserQuestions: {
         category: String,
@@ -23,7 +22,6 @@ type MyConversation = Conversation<MyContext>;
 
 const bot = new Bot<MyContext>(process.env.BOT_TOKEN ?? "", {
   client: {
-    // We accept the drawback of webhook replies for typing status.
     canUseWebhookReply: (method) => method === "sendChatAction",
   }});
 
@@ -57,7 +55,7 @@ async function gasteiQuestions(conversation: MyConversation, ctx: MyContext) {
 
     await ctx.reply("Ok, e a qual a descrição ?", {
         reply_markup: { remove_keyboard: true },
-      });
+    });
     cvsContext = await conversation.waitFor("message:text");
     const description = cvsContext.msg.text
 
@@ -75,28 +73,31 @@ async function gasteiQuestions(conversation: MyConversation, ctx: MyContext) {
 }
 
 bot.callbackQuery("ok", async (ctx) => {
-    await ctx.editMessageReplyMarkup()
+    await ctx.answerCallbackQuery();
     const {category, description, value} = ctx.session.awnserQuestions
     const saved = await saveOnSheet(description,category,value);
 
     if(!saved){
-        await ctx.reply("Erro ao salvar tente novamente")
-        await ctx.editMessageReplyMarkup({reply_markup: confirmationKeyboard})
+        await ctx.reply("Erro ao salvar, tente novamente", {reply_markup: confirmationKeyboard})
     }
     
     await ctx.reply("Salvo")
-    // await ctx.reply(res.data.fact)
     await ctx.conversation.exit();
     console.log("finalizou bot")
 });
 
 bot.callbackQuery("cancel", async (ctx) => {
-    await ctx.editMessageReplyMarkup()
+    await ctx.answerCallbackQuery();
     await ctx.reply("Cancelado!");
     await ctx.conversation.exit();
+    console.log("cancelou e finalizou bot")
+});
+
+bot.on("callback_query:data", async (ctx) => {
+  console.log("Unknown button event with payload", ctx.callbackQuery.data);
+  await ctx.answerCallbackQuery(); // remove loading animation
 });
   
-
 bot.use(createConversation(gasteiQuestions));
 
 bot.hears(['gastei', 'Gastei'], async (ctx) => {

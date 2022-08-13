@@ -1,14 +1,13 @@
-import express from "express";
-import { webhookCallback } from "grammy";
-import { http} from "@serverless/cloud";
-const  errorHandler = require('node-error-handler');
+import { Bot } from 'grammy'
 
-import bot from './bot'
+if(!process.env['BOT_TOKEN']){
+  throw new Error("Missing BOT_TOKEN env");
+}
 
-const app = express(); 
-app.use(express.json());
-app.use(errorHandler({ debug: true, trace: app.get('env') === 'development' }));
+if(!process.env['WEBHOOK']){
+  throw new Error("Missing WEBHOOK env");
+}
 
-app.use(webhookCallback(bot, "express"));
+const bot = new Bot(process.env['BOT_TOKEN'])
 
-http.use(app);
+bot.api.setWebhook(process.env['WEBHOOK'])

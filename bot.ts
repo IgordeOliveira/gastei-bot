@@ -8,8 +8,6 @@ import {
 import { freeStorage } from "@grammyjs/storage-free";
 
 import saveOnSheet from './sheetService'
-// import dotenv from "dotenv"
-// dotenv.config()
 
 
 interface SessionData {

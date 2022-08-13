@@ -1,6 +1,4 @@
 const { GoogleSpreadsheet } = require('google-spreadsheet');
-require('dotenv').config();
-
 
 async function setup() {
     const doc = new GoogleSpreadsheet(process.env.GOOGLE_SHEET_ID);

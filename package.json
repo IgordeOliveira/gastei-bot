@@ -1,28 +1,21 @@
 {
   "devDependencies": {
-    "@types/express": "^4.17.13",
     "@types/google-spreadsheet": "^3.3.0",
     "@types/node": "^18.7.2",
-    "nodemon": "^2.0.19",
     "ts-node": "^10.9.1",
     "typescript": "^4.7.4"
   },
   "dependencies": {
     "@grammyjs/conversations": "^1.0.2",
     "@grammyjs/storage-free": "^2.0.0",
-    "@serverless/cloud": "^2.10.14",
     "axios": "^0.27.2",
     "dotenv": "^16.0.1",
-    "express": "^4.18.1",
     "google-spreadsheet": "^3.3.0",
-    "grammy": "^1.10.1",
-    "node-error-handler": "^1.2.7"
-  },
-  "serverless": {
-    "app": "gasteibot",
-    "org": "igoroliveiradev"
+    "grammy": "^1.10.1"
   },
   "scripts": {
-    "cloud:build": "tsc"
+    "dev": "ts-node index.ts",
+    "start": "ts-node index.js",
+    "build": "tsc -p ."
   }
 }

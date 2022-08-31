@@ -87,7 +87,6 @@ bot.callbackQuery("ok", async (ctx) => {
     }
     
     await ctx.reply("Salvo")
-    // await ctx.reply(res.data.fact)
     await ctx.conversation.exit();
     console.log("finalizou bot")
 });

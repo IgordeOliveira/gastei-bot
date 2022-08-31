@@ -1,14 +1,19 @@
-import express from "express";
-import { webhookCallback } from "grammy";
-import { http} from "@serverless/cloud";
-const  errorHandler = require('node-error-handler');
+import { GrammyError, HttpError } from "grammy";
 
 import bot from './bot'
 
-const app = express(); 
-app.use(express.json());
-app.use(errorHandler({ debug: true, trace: app.get('env') === 'development' }));
+bot.catch((err) => {
+  const ctx = err.ctx;
+  console.error(`Error while handling update ${ctx.update.update_id}:`);
+  const e = err.error;
+  if (e instanceof GrammyError) {
+    console.error("Error in request:", e.description);
+  } else if (e instanceof HttpError) {
+    console.error("Could not contact Telegram:", e);
+  } else {
+    console.error("Unknown error:", e);
+  }
+})
+console.info("--- iniciando bot ---")
+bot.start()
 
-app.use(webhookCallback(bot, "express"));
-
-http.use(app);

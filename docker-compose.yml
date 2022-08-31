@@ -1,0 +1,8 @@
+version: "3.7"
+services:
+  gastei-bot:
+    restart: always
+    build: .
+    env_file: .env
+    ports:
+      - 80:80

@@ -14,6 +14,6 @@ bot.catch((err) => {
     console.error("Unknown error:", e);
   }
 })
-console.info("--- iniciando bot ---")
+console.info("--- starting bot ---")
 bot.start()
 

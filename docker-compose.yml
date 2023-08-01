@@ -1,8 +1,20 @@
 version: "3.7"
 services:
-  gastei-bot:
-    restart: always
-    build: .
-    env_file: .env
+  postgres:
+    container_name: postgres_container
+    image: postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      PGDATA: /data/postgres
+    volumes:
+       - ./postgres:/data/postgres
     ports:
-      - 80:80
+      - "5432:5432"
+    restart: unless-stopped
+  # gastei-bot:
+  #   restart: always
+  #   build: .
+  #   env_file: .env
+  #   ports:
+  #     - 80:80

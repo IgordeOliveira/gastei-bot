@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "@grammyjs/conversations": "^1.0.2",
-    "@grammyjs/storage-free": "^2.0.0",
+    "@grammyjs/storage-prisma": "^2.3.0",
     "@prisma/client": "^5.0.0",
     "axios": "^1.4.0",
     "dotenv": "^16.0.1",
@@ -19,7 +19,6 @@
   "scripts": {
     "dev": "ts-node index.ts",
     "start": "ts-node index.js",
-    "sheet": "ts-node sheet_service/index.ts",
     "build": "tsc -p ."
   }
 }

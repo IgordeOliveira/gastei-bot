@@ -1,6 +1,6 @@
 import { GrammyError, HttpError } from "grammy";
 
-import bot from './bot'
+import bot from './telegram_bot'
 
 bot.catch((err) => {
   const ctx = err.ctx;

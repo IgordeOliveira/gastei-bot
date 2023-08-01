@@ -16,3 +16,9 @@ model User {
   document_id String
   sheet_id    Int
 }
+
+model Session {
+  id    Int    @id @default(autoincrement())
+  key   String @unique
+  value String
+}
